@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+  <head>
+  </head>
+  <body>
+    <div id="listagem"></div>
+    <a id="anterior"> < Anterior </a>
+    <a id="proximo"> Proximo ></a>
+  </body>
+  <script src="handlebars.js"></script>
+  <script src="templates.js"></script>
+  <script>
+  var data = {
+    contatos: [
+      {
+        nome:   "André Taiar",
+        email:  "andre@hotmail.com",
+        tel:    "11111111111111"
+      },
+      {
+        nome:   "Daniel Taiar",
+        email:  "daniel@hotmail.com",
+        tel:    "2222222222222222"
+      },
+      {
+        nome:   "Daniel Melo",
+        email:  "daniel@ymail.com",
+        tel:    "3333333333333333"
+      },
+      {
+        nome:   "Mateus Fernandes",
+        email:  "mateus@hotmail.com",
+        tel:    "4444444444444444444"
+      }
+    ]
+  };
+
+  var view = document.getElementById('listagem');
+  var counter = 0;
+  var template = Handlebars.compile(Templates.contactLoad);
+  view.innerHTML = template(data);
+
+  function verAqui() {
+    alert('ae doudo');
+  }
+
+  function next() {
+    counter += 1;
+    if (counter >= data.contatos.length)
+      counter = 0;
+    template = Handlebars.compile(Templates.contactList);
+    view.innerHTML = template(data.contatos[counter]);
+  }
+
+  function prev() {
+    counter -= 1;
+    if (counter < 0)
+      counter = (data.contatos.length - 1);
+    template = Handlebars.compile(Templates.contactList);
+    view.innerHTML = template(data.contatos[counter]);
+  }
+
+  (function(){
+    document.getElementById('proximo').addEventListener("click", next, false);
+    document.getElementById('anterior').addEventListener("click", prev, false);
+  })();
+
+  </script>
+</html>
